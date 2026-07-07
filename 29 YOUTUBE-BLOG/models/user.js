@@ -5,7 +5,7 @@ const userSchema = new Schema({
     fullName:{
         type: String,
         required: true,
-    },
+    },   
     email:{
         type: String,
         required: true,
@@ -48,7 +48,7 @@ userSchema.pre('save', function () {
 });
 
 
-userSchema.static('matchPassword', async function(email, password) {
+userSchema.static('matchPasswordAndGenerateToken', async function(email, password) {
     const user = await this.findOne({ email });
     if (!user) throw new Error('User not found!');
     const salt = user.salt;
@@ -61,7 +61,8 @@ userSchema.static('matchPassword', async function(email, password) {
     if(hashedPassword !== userProvidedHash)
         throw new Error('Incorrect Password')
     
-    return user;
+    const token = createTokenForUser(user);
+    return token;
 })
 const User = model("User", userSchema)
 
