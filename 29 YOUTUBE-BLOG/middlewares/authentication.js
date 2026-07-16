@@ -13,7 +13,7 @@ function checkForAuthenticationCookie(cookieName){
         }catch (error) {
             console.log(error);
         }
-        next();
+        return next();
 
     }
         
