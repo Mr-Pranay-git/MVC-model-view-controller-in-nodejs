@@ -14,7 +14,7 @@ const blogSchema = new Schema(
             type: String,
             required: false,
         },
-        createdby:{
+        createdBy:{
             type: Schema.Types.ObjectId,
             ref: "user",
         },
@@ -24,6 +24,4 @@ const blogSchema = new Schema(
 
 const Blog = model('blog', blogSchema)
 
-module.exports = {
-    Blog
-}
+module.exports = Blog
