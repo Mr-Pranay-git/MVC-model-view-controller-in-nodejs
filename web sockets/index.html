@@ -15,15 +15,19 @@
     
     <script>
         // DOM
+        const messageInput = document.getElementById('message-input');
+        const messageSendButton = document.getElementById('message-send-button');
+        const messageContainer = document.getElementById('message-container')
         
         const {port} = window.location;
         const connection = new WebSocket(`ws://localhost:${port}`);
+        
         connection.onopen = ()=>{
-            connection.send('ping hello from the client...'); 
-            connection.onmessage = (message) =>{
-                console.log(message);
-            }
-        }
+        messageSendButton.addEventListener('click', (ev) => {
+            const value = messageInput.value;
+            connection.send(JSON.stringify({message: value}));
+        });
+        };
 
     </script>
 </body>

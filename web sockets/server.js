@@ -18,7 +18,10 @@ wsServer.on('connection', (websocket)=>{
 
     websocket.on('message', (data)=>{
         console.log(`WebSocket Message Recv.`, data.toString());
-        websocket.send('pong.. hello ji from server')
+        // Broadcast the message to all the clients connected...
+        wsServer.clients.forEach((client) => {
+            client.send(data.toString());
+        })
     });
 });
 
